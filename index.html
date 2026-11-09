@@ -20,7 +20,7 @@
   <div class="top-bar">
     <div class="container top-bar-inner">
       <div class="top-bar-left">
-        <span class="top-bar-badge"><span class="dot"></span> SQL Database Live</span>
+        <span class="top-bar-badge"><span class="dot"></span> Ready to Book</span>
         <span>Over 45,000+ local repairs completed with a 4.9/5 satisfaction rating</span>
       </div>
       <div class="top-bar-right">
@@ -575,32 +575,32 @@
       <!-- Panel 1: Customer Login -->
       <div class="auth-form-panel" id="panel-login">
         <h3 style="font-size: 1.4rem; color: var(--color-navy-dark); margin-bottom: 0.35rem;">Customer Sign In</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Log in to book services and view your scheduled appointments.</p>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Only registered customers can sign in. Please enter your credentials.</p>
 
         <div id="customerAuthAlert" class="auth-alert-box"></div>
 
         <form id="customerLoginForm">
           <div class="quick-form-group">
             <label class="quick-form-label" for="loginEmail">Email Address</label>
-            <input type="email" id="loginEmail" class="quick-input" placeholder="you@example.com" value="john@example.com" required>
+            <input type="email" id="loginEmail" class="quick-input" placeholder="Enter your registered email" required>
           </div>
           <div class="quick-form-group">
             <label class="quick-form-label" for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" class="quick-input" placeholder="••••••••" value="password123" required>
+            <input type="password" id="loginPassword" class="quick-input" placeholder="Enter your password" required>
           </div>
           <button type="submit" class="btn btn-primary btn-block" style="padding: 0.85rem; margin-top: 1rem;">Sign In</button>
         </form>
 
-        <div class="auth-demo-hint">
-          <strong>Demo Customer Account:</strong><br>
-          Email: <code>john@example.com</code> &middot; Password: <code>password123</code>
+        <div style="text-align: center; margin-top: 1.25rem; font-size: 0.9rem; color: var(--text-muted);">
+          Don't have an account? 
+          <a href="#" onclick="switchAuthTab('register')" style="color: var(--color-primary); font-weight: 700;">Register here &rarr;</a>
         </div>
       </div>
 
       <!-- Panel 2: Customer Register -->
       <div class="auth-form-panel" id="panel-register" style="display: none;">
-        <h3 style="font-size: 1.4rem; color: var(--color-navy-dark); margin-bottom: 0.35rem;">Create Customer Account</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Join HomeServe Pro to book and track services in your dashboard.</p>
+        <h3 style="font-size: 1.4rem; color: var(--color-navy-dark); margin-bottom: 0.35rem;">Register Customer Account</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Register once to unlock instant booking and track your appointments.</p>
 
         <div id="registerAuthAlert" class="auth-alert-box"></div>
 
@@ -621,8 +621,17 @@
             <label class="quick-form-label" for="regPassword">Create Password</label>
             <input type="password" id="regPassword" class="quick-input" placeholder="At least 6 characters" minlength="6" required>
           </div>
-          <button type="submit" class="btn btn-primary btn-block" style="padding: 0.85rem; margin-top: 1rem;">Register & Sign In</button>
+          <div class="quick-form-group">
+            <label class="quick-form-label" for="regConfirmPassword">Confirm Password</label>
+            <input type="password" id="regConfirmPassword" class="quick-input" placeholder="Re-enter password" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="padding: 0.85rem; margin-top: 1rem;">Create Account</button>
         </form>
+
+        <div style="text-align: center; margin-top: 1.25rem; font-size: 0.9rem; color: var(--text-muted);">
+          Already registered? 
+          <a href="#" onclick="switchAuthTab('login')" style="color: var(--color-primary); font-weight: 700;">Sign in here &rarr;</a>
+        </div>
       </div>
 
       <!-- Panel 3: Admin Login -->
@@ -635,11 +644,11 @@
         <form id="adminLoginForm">
           <div class="quick-form-group">
             <label class="quick-form-label" for="adminLoginEmail">Admin Email</label>
-            <input type="email" id="adminLoginEmail" class="quick-input" value="admin@homeserve.com" required>
+            <input type="email" id="adminLoginEmail" class="quick-input" placeholder="admin@homeserve.com" required>
           </div>
           <div class="quick-form-group">
             <label class="quick-form-label" for="adminLoginPassword">Admin Password</label>
-            <input type="password" id="adminLoginPassword" class="quick-input" value="admin123" required>
+            <input type="password" id="adminLoginPassword" class="quick-input" placeholder="••••••••" required>
           </div>
           <button type="submit" class="btn btn-primary btn-block" style="padding: 0.85rem; margin-top: 1rem; background: #0f172a;">
             Log In as Administrator
@@ -936,7 +945,7 @@
 
       <div class="footer-bottom">
         <p>&copy; 2027 HomeServe Pro, Inc. All rights reserved.</p>
-        <p>Insured up to $2,000,000 &middot; SQL / MySQL Database Enabled</p>
+        <p>Insured up to $2,000,000 &middot; Satisfaction Guaranteed</p>
       </div>
     </div>
   </footer>

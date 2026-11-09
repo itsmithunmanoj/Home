@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+.env
+
+# SQLite database (don't commit — created fresh by the server)
+*.db
+
+# Build artifacts
+*.zip
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -15,7 +15,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__, static_folder='.', static_url_path='')
 app.secret_key = os.environ.get('SECRET_KEY', 'homeserve-pro-super-secret-key-2027')
 
-DB_FILE = os.path.join(os.path.dirname(__file__), 'homeserve.db')
+# On OpenShift, DB_PATH env var points to a writable directory (e.g. /app/data/homeserve.db)
+DB_FILE = os.environ.get('DB_PATH', os.path.join(os.path.dirname(__file__), 'homeserve.db'))
 
 def get_db():
     conn = sqlite3.connect(DB_FILE)
@@ -171,14 +172,25 @@ def login():
     password = data.get('password', '').strip()
 
     if not email or not password:
-        return jsonify({'success': False, 'message': 'Email and password required.'}), 400
+        return jsonify({'success': False, 'message': 'Email and password are required.'}), 400
 
     conn = get_db()
     user = conn.execute("SELECT id, name, email, phone, password_hash, role FROM users WHERE email = ?", (email,)).fetchone()
     conn.close()
 
-    if not user or not check_password_hash(user['password_hash'], password):
-        return jsonify({'success': False, 'message': 'Invalid email or password.'}), 401
+    # Strict Check: If user does not exist, reject with register prompt
+    if not user:
+        return jsonify({
+            'success': False,
+            'message': 'No account found with this email. You must register first before signing in.'
+        }), 404
+
+    # Strict Check: Password verification
+    if not check_password_hash(user['password_hash'], password):
+        return jsonify({
+            'success': False,
+            'message': 'Incorrect password. Please check your password and try again.'
+        }), 401
 
     session['user_id'] = user['id']
     session['role'] = user['role']

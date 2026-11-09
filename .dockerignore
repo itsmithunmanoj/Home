@@ -1,0 +1,9 @@
+homeserve.db
+__pycache__
+*.pyc
+*.pyo
+.git
+.gitignore
+*.md
+*.zip
+openshift/

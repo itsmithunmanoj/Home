@@ -1,0 +1,21 @@
+# Optional: Use this PVC instead of emptyDir in deployment.yaml
+# to make the SQLite database survive pod restarts.
+#
+# Replace the volumes section in deployment.yaml with:
+#
+#   volumes:
+#     - name: db-storage
+#       persistentVolumeClaim:
+#         claimName: homeserve-db-pvc
+#
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homeserve-db-pvc
+  namespace: mithun780-dev
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi

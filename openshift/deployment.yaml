@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homeserve-pro
+  namespace: mithun780-dev
+  labels:
+    app: homeserve-pro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homeserve-pro
+  template:
+    metadata:
+      labels:
+        app: homeserve-pro
+    spec:
+      containers:
+        - name: homeserve-pro
+          image: image-registry.openshift-image-registry.svc:5000/mithun780-dev/homeserve-pro:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+            - name: FLASK_ENV
+              value: "production"
+            - name: DB_PATH
+              value: "/app/data/homeserve.db"
+            - name: SECRET_KEY
+              value: "homeserve-openshift-secret-2027-change-me"
+          volumeMounts:
+            - name: db-storage
+              mountPath: /app/data
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 30
+      volumes:
+        - name: db-storage
+          emptyDir: {}
+          # NOTE: emptyDir resets on pod restart (data lost).
+          # For persistent data, replace with a PersistentVolumeClaim — see
+          # the PVC example in this folder (pvc.yaml).
